@@ -11,8 +11,10 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+// var qs = require('querystring');
+var messages = require('./data.js').results;
 
-var requestHandler = function(request, response) {
+exports.requestHandler = function(request, response) {
   // Request and Response come from node's http module.
   //
   // They include information about both the incoming request, such as
@@ -32,6 +34,42 @@ var requestHandler = function(request, response) {
   // The outgoing status.
   var statusCode = 200;
 
+  if(request.method == 'POST' && request.url == '/') {
+    // console.log('post: ', request.body);
+    var body = '';
+    request.on('data', function(data) {
+      body += data;
+    });
+
+    request.on('end', function(data) {
+      // data = qs.parse(body);
+      data = JSON.parse(body);
+      console.log(request.url);
+      if (!data.username) {
+        data.username = 'Anon';
+      }
+      // data = JSON.parse(data);
+      messages.push(data);
+      console.log(data);
+    });
+
+  }
+
+  var data = {
+    results: null
+  };
+
+  var getTag = new RegExp('[/][?].*', 'g');
+
+  if(request.method == 'GET' && request.url.match(getTag)) {
+    console.log('get got.', response.results);
+    data.results = messages;
+
+    // { results: messages }
+
+
+  }
+
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
 
@@ -39,7 +77,7 @@ var requestHandler = function(request, response) {
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = "text/plain";
+  headers['Content-Type'] = "JSON";
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
@@ -52,7 +90,7 @@ var requestHandler = function(request, response) {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  response.end("Hello, World!");
+  response.end(JSON.stringify(data));
 };
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
