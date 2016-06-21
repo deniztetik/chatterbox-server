@@ -12,7 +12,9 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 // var qs = require('querystring');
-var messages = require('./data.js').results;
+var _ = require('underscore');
+var results = require('./data.js').results;
+var rooms = require('./data.js').rooms;
 
 exports.requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -34,40 +36,43 @@ exports.requestHandler = function(request, response) {
   // The outgoing status.
   var statusCode = 200;
 
-  if(request.method == 'POST' && request.url == '/') {
-    // console.log('post: ', request.body);
+  if(request.method == 'POST') {
+
+
+    var room = request.url.split('/')[2];
+    if (!_.contains(rooms, room)) {
+      rooms.push(room);
+    }
+    statusCode = 201;
+
     var body = '';
     request.on('data', function(data) {
       body += data;
     });
 
     request.on('end', function(data) {
-      // data = qs.parse(body);
       data = JSON.parse(body);
-      console.log(request.url);
       if (!data.username) {
         data.username = 'Anon';
       }
-      // data = JSON.parse(data);
-      messages.push(data);
-      console.log(data);
+      results.push(data);
     });
-
   }
 
   var data = {
-    results: null
+    results: []
   };
 
   var getTag = new RegExp('[/][?].*', 'g');
 
-  if(request.method == 'GET' && request.url.match(getTag)) {
-    console.log('get got.', response.results);
-    data.results = messages;
+  if(request.method == 'GET') {
+    data.results = results;
 
-    // { results: messages }
+    var validUrl = request.url.split('/')[1];
 
-
+    if (validUrl !== 'classes') {
+      statusCode = 404;
+    }
   }
 
   // See the note below about CORS headers.
