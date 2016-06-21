@@ -1,0 +1,2 @@
+exports.results = [];
+exports.rooms = [];

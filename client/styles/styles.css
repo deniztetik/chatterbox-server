@@ -1,0 +1,167 @@
+body {
+    background: #eee;
+    text-align: center;
+    padding: 0 25px;
+    font-family: arial, sans-serif;
+}
+
+#title {
+background-color: #666666;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+}
+
+#main {
+    width: 600px;
+    margin: auto;
+    text-align: left;
+    background: white;
+    padding: 50px 60px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+}
+
+#main h1 {
+    margin-top: 0;
+    font-size: 70px;
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+#main h1 span {
+    font-style:italic;
+}
+
+#main ul {
+    padding-left: 20px;
+}
+
+#main .error {
+    border: 1px solid red;
+    background: #FDEFF0;
+    padding: 20px;
+}
+
+#main .success {
+    margin-top: 25px;
+}
+
+#main .success code {
+    font-size: 12px;
+    color: green;
+    line-height: 13px;
+}
+
+form {
+    padding: 20px;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+form input[type=text] {
+    margin-right: 10px;
+    width: 70%;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.chat {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.chat .username {
+    font-weight: 800;
+}
+
+.chat:hover {
+    background-color: #ddd;
+}
+
+.spinner {
+    float: right;
+    height: 46px;
+    margin-bottom: 5px;
+}
+
+.spinner img {
+    padding: 10px;
+}
+
+#friendList {
+    position: absolute;
+    top: 18%;
+    right: 24%;
+}
+
+#friends {
+    background-color: white;
+    position: relative;
+    min-width: 150px;
+}
+
+.message {
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 7px #eee;
+    font-family: "Courier";
+}
+
+.username {
+    color: #D46A6A;
+    padding: 5px;
+    font-size: 24px;
+}
+
+
+.messageText {
+    padding: 5px;
+}
+
+.messageRoom {
+    padding: 5px;
+}
+
+#roomSelect {
+    background-color: white;
+    position: absolute;
+    min-width: 150px;
+}
+
+#chatInput {
+    margin: 0 auto;
+    min-width: 50%;
+    text-align: center;
+    display: block;
+    border-radius: 4px;
+    padding: 5px;
+
+}
+
+#submit {
+    position: absolute;
+    margin: auto;
+    padding: 5px;
+    right: 30%;
+    top: 22%;
+    width: 60px;
+    border-radius: 4px;
+    background-color: #eee;
+}
+
+#newRoom {
+    background-color: white;
+    position: absolute;
+    top:190px;
+    left:200px;
+    min-width: 150px;
+
+}
